@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { AppRole } from '../../types/index';
 import { 
@@ -20,7 +19,10 @@ import {
   Newspaper,
   Send,
   ChevronRight,
-  ChefHat
+  ChefHat,
+  ClipboardCheck,
+  Box,
+  PackageCheck
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -55,19 +57,52 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
     { name: 'Ví sàn', icon: Wallet, id: 'admin-wallet' },
   ];
 
-  const menu = role === AppRole.ADMIN ? adminMenu : farmerMenu;
+  const staffMenu = [
+    { name: 'Tổng quan kho', icon: LayoutDashboard, id: 'staff-overview' },
+    { name: 'Quản lý đơn hàng', icon: Truck, id: 'staff-incoming' },
+    { name: 'Kiểm duyệt chất lượng', icon: ClipboardCheck, id: 'staff-inspect' },
+    { name: 'Đóng gói đơn hàng', icon: Box, id: 'staff-pack' },
+    { name: 'Gọi Shipper', icon: PackageCheck, id: 'staff-shipper' },
+    { name: 'Hồ sơ nhân viên', icon: UserCircle, id: 'staff-profile' },
+  ];
+
+  const menu = role === AppRole.ADMIN ? adminMenu : role === AppRole.STAFF ? staffMenu : farmerMenu;
+
+  const getSubtitle = () => {
+    if (role === AppRole.ADMIN) return 'HỆ THỐNG QUẢN TRỊ';
+    if (role === AppRole.STAFF) return 'QUẢN LÝ KHO';
+    return 'NÔNG TRẠI XANH';
+  };
+
+  const getHomeRoute = () => {
+    if (role === AppRole.ADMIN) return 'admin-overview';
+    if (role === AppRole.STAFF) return 'staff-overview';
+    return 'overview';
+  };
+
+  const getAvatar = () => {
+    if (role === AppRole.STAFF) return 'https://picsum.photos/seed/staff_01/100/100';
+    if (role === AppRole.FARMER) return 'https://picsum.photos/seed/farmer_ba/100/100';
+    return 'https://picsum.photos/seed/admin_avatar/100/100';
+  };
+
+  const getUserName = () => {
+    if (role === AppRole.STAFF) return 'Nguyễn Thị Phương';
+    if (role === AppRole.FARMER) return 'Bác Ba Nông Dân';
+    return 'Admin Tổng';
+  };
 
   return (
     <aside className="w-80 bg-white border-r border-gray-100 flex flex-col h-full shadow-sm z-50">
       {/* Header Logo Area */}
       <div className="p-8 pb-4">
-        <div className="flex items-center gap-3 px-2 cursor-pointer" onClick={() => onNavigate(role === AppRole.ADMIN ? 'admin-overview' : 'overview')}>
+        <div className="flex items-center gap-3 px-2 cursor-pointer" onClick={() => onNavigate(getHomeRoute())}>
           <div className="bg-primary size-10 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/30 shrink-0">
             <Leaf className="size-6 fill-current" />
           </div>
           <div>
             <h1 className="text-xl font-black leading-none font-display text-gray-900 tracking-tight uppercase">XẤU MÃ</h1>
-            <p className="text-gray-400 text-[9px] font-bold mt-1 tracking-widest uppercase">{role === AppRole.ADMIN ? 'HỆ THỐNG QUẢN TRỊ' : 'NÔNG TRẠI XANH'}</p>
+            <p className="text-gray-400 text-[9px] font-bold mt-1 tracking-widest uppercase">{getSubtitle()}</p>
           </div>
         </div>
       </div>
@@ -94,13 +129,13 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
         })}
       </nav>
 
-      {/* Footer Area - Logout is HERE */}
+      {/* Footer Area */}
       <div className="p-8 border-t border-gray-50 bg-white space-y-6">
         <div className="bg-gray-50/80 rounded-3xl p-4 border border-gray-100 flex items-center gap-4 group">
           <div className="relative shrink-0">
             <img 
               className="size-10 rounded-xl border-2 border-white shadow-sm object-cover" 
-              src={role === AppRole.FARMER ? "https://picsum.photos/seed/farmer_ba/100/100" : "https://picsum.photos/seed/admin_avatar/100/100"} 
+              src={getAvatar()} 
               alt="User" 
             />
             <div className="absolute -bottom-1 -right-1 size-4 bg-primary rounded-full border-2 border-white flex items-center justify-center">
@@ -108,7 +143,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
             </div>
           </div>
           <div className="flex flex-col min-w-0">
-            <p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">{role === AppRole.FARMER ? 'Bác Ba Nông Dân' : 'Admin Tổng'}</p>
+            <p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">{getUserName()}</p>
             <p className="text-[8px] text-primary uppercase tracking-widest font-black">Trạng thái: Online</p>
           </div>
         </div>

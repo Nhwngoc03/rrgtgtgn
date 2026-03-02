@@ -35,6 +35,12 @@ import NotificationManagement from './pages/admin/NotificationManagement';
 import NewsManagement from './pages/admin/NewsManagement';
 import ProductApproval from './pages/admin/ProductApproval';
 import { AppRole, User, KYCStatus } from './types/index';
+import StaffDashboard from './pages/staff/StaffDashboard';
+import IncomingOrders from './pages/staff/IncomingOrders';
+import QualityInspection from './pages/staff/QualityInspection';
+import Packing from './pages/staff/Packing';
+import CallShipper from './pages/staff/CallShipper';
+import StaffProfile from './pages/staff/StaffProfile';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -43,6 +49,7 @@ const App: React.FC = () => {
   const [role, setRole] = useState<AppRole>(AppRole.BUYER);
   const [farmerSubPage, setFarmerSubPage] = useState<string>('overview');
   const [adminSubPage, setAdminSubPage] = useState<string>('admin-overview');
+  const [staffSubPage, setStaffSubPage] = useState<string>('staff-overview');
   const [selectedOrderIdForPrep, setSelectedOrderIdForPrep] = useState<string | null>(null);
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -53,7 +60,7 @@ const App: React.FC = () => {
 
   const currentUser: User | null = isAuthenticated ? {
     id: 'user-123',
-    name: role === AppRole.SHIPPER ? 'Anh Hùng Shipper' : role === AppRole.FARMER ? 'Bác Ba Nông Dân' : role === AppRole.ADMIN ? 'Admin Tổng' : 'Người dùng Xấu Mã',
+    name: role === AppRole.STAFF ? 'Nguyễn Thị Phương' : role === AppRole.SHIPPER ? 'Anh Hùng Shipper' : role === AppRole.FARMER ? 'Bác Ba Nông Dân' : role === AppRole.ADMIN ? 'Admin Tổng' : 'Người dùng Xấu Mã',
     email: 'user@xauma.vn',
     role: role,
     kycStatus: KYCStatus.APPROVED,
@@ -101,7 +108,7 @@ const App: React.FC = () => {
       document.body.scrollTop = 0;
       window.scrollTo(0, 0);
     }, 0);
-  }, [farmerSubPage, adminSubPage]);
+  }, [farmerSubPage, adminSubPage, , staffSubPage]);
 
   const handleLogin = (selectedRole: AppRole) => {
     setRole(selectedRole);
@@ -208,7 +215,7 @@ const App: React.FC = () => {
   const renderFarmerContent = () => {
     // Show order preparation if selected
     if (selectedOrderIdForPrep) {
-      return <OrderPreparation 
+      return <OrderPreparation
         orderId={selectedOrderIdForPrep}
         onBack={() => setSelectedOrderIdForPrep(null)}
         onComplete={() => setSelectedOrderIdForPrep(null)}
@@ -245,37 +252,49 @@ const App: React.FC = () => {
     }
   }
 
+  const renderStaffContent = () => {
+    switch (staffSubPage) {
+      case 'staff-overview': return <StaffDashboard onNavigate={setStaffSubPage} />;
+      case 'staff-incoming': return <IncomingOrders />;
+      case 'staff-inspect': return <QualityInspection />;
+      case 'staff-pack': return <Packing />;
+      case 'staff-shipper': return <CallShipper />;
+      case 'staff-profile': return <StaffProfile />;
+      default: return <StaffDashboard onNavigate={setStaffSubPage} />;
+    }
+  };
+
   const renderContent = () => {
     switch (role) {
       case AppRole.BUYER:
         return (
           <div className="flex flex-col min-h-screen">
-            <Header 
-              user={currentUser} 
+            <Header
+              user={currentUser}
               isAuthenticated={isAuthenticated}
-              onRoleSwitch={setRole} 
-              onOpenCart={handleOpenCart} 
+              onRoleSwitch={setRole}
+              onOpenCart={handleOpenCart}
               onLogout={handleLogout}
-              onOpenNews={handleOpenNews} 
+              onOpenNews={handleOpenNews}
               onGoHome={handleCloseBuyerSpecialPages}
               onOpenLogin={() => setAuthMode('LOGIN')}
               onOpenRegister={() => setAuthMode('REGISTER')}
             />
             <div className={`flex-1 ${isNewsOpen ? '' : 'overflow-y-auto'}`}>
               {isTrackingOpen ? <Tracking onBack={handleCloseBuyerSpecialPages} /> :
-               isSuccessOpen ? <Success onTrackOrder={handleOpenTracking} onGoHome={handleCloseBuyerSpecialPages} /> :
-               isCheckoutOpen ? <Checkout onComplete={handlePaymentSuccess} onBack={handleOpenCart} /> :
-               isCartOpen ? <Cart onProceedToCheckout={handleProceedToCheckout} onBackToShopping={handleCloseBuyerSpecialPages} /> :
-               isNewsOpen ? <News /> :
-               selectedProductId ? <ProductDetail 
-                 productId={selectedProductId} 
-                 onBack={() => setSelectedProductId(null)}
-                 isAuthenticated={isAuthenticated}
-                 onOpenLogin={() => setAuthMode('LOGIN')}
-               /> :
-               <Home onSelectProduct={(id) => {
-                 setSelectedProductId(id);
-               }} />}
+                isSuccessOpen ? <Success onTrackOrder={handleOpenTracking} onGoHome={handleCloseBuyerSpecialPages} /> :
+                  isCheckoutOpen ? <Checkout onComplete={handlePaymentSuccess} onBack={handleOpenCart} /> :
+                    isCartOpen ? <Cart onProceedToCheckout={handleProceedToCheckout} onBackToShopping={handleCloseBuyerSpecialPages} /> :
+                      isNewsOpen ? <News /> :
+                        selectedProductId ? <ProductDetail
+                          productId={selectedProductId}
+                          onBack={() => setSelectedProductId(null)}
+                          isAuthenticated={isAuthenticated}
+                          onOpenLogin={() => setAuthMode('LOGIN')}
+                        /> :
+                          <Home onSelectProduct={(id) => {
+                            setSelectedProductId(id);
+                          }} />}
             </div>
             <Footer />
           </div>
@@ -294,6 +313,13 @@ const App: React.FC = () => {
           <div className="flex h-screen w-full overflow-hidden">
             <Sidebar role={role} currentPath={adminSubPage} onNavigate={setAdminSubPage} onLogout={handleLogout} />
             <main className="flex-1 overflow-y-auto bg-background">{renderAdminContent()}</main>
+          </div>
+        );
+      case AppRole.STAFF:
+        return (
+          <div className="flex h-screen w-full overflow-hidden">
+            <Sidebar role={role} currentPath={staffSubPage} onNavigate={setStaffSubPage} onLogout={handleLogout} />
+            <main className="flex-1 overflow-y-auto bg-background">{renderStaffContent()}</main>
           </div>
         );
       default:

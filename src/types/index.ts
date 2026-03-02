@@ -3,7 +3,8 @@ export enum AppRole {
   BUYER = 'BUYER',
   FARMER = 'FARMER',
   ADMIN = 'ADMIN',
-  SHIPPER = 'SHIPPER'
+  SHIPPER = 'SHIPPER',
+  STAFF = 'STAFF'
 }
 
 export enum KYCStatus {

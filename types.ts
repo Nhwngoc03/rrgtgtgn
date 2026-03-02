@@ -3,7 +3,8 @@ export const AppRole = {
   BUYER: 'BUYER',
   FARMER: 'FARMER',
   ADMIN: 'ADMIN',
-  SHIPPER: 'SHIPPER'
+  SHIPPER: 'SHIPPER',
+  STAFF: 'STAFF'
 } as const;
 export type AppRole = typeof AppRole[keyof typeof AppRole];
 

@@ -62,7 +62,7 @@ const App: React.FC = () => {
 
   // Prevent body scroll when modal is open (but NOT for full page views like ProductDetail, Cart, Checkout)
   useEffect(() => {
-    const isModalOpen = isSuccessOpen || isTrackingOpen || isNewsOpen;
+    const isModalOpen = isSuccessOpen || isNewsOpen;
     if (isModalOpen) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';

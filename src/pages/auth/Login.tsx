@@ -24,10 +24,10 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
         />
         <div className="absolute inset-0 z-20 p-12 flex flex-col justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-11 h-11 bg-primary rounded-xl flex items-center justify-center shadow-xl">
-              <span className="material-symbols-outlined text-white text-xl font-bold">eco</span>
+            <div className="mb-4 flex items-center gap-3 justify-center lg:justify-start">
+              <img src="/logo.png" alt="Logo" className="size-12 rounded-full" />
+              <span className="display-font text-2xl font-bold text-white tracking-tight">Nông Sản Xấu Mã</span>
             </div>
-            <span className="display-font text-2xl font-bold text-white tracking-tight drop-shadow-md">Xấu Mã</span>
           </div>
           <div className="max-w-md">
             <h2 className="display-font text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
@@ -48,6 +48,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
           
           {/* Header - Compact */}
           <div className="mb-6 text-center lg:text-left shrink-0">
+           
             <h1 className="display-font text-4xl font-extrabold text-primary mb-1 tracking-tight">Đăng nhập</h1>
             <p className="text-[#64748b] text-lg font-medium leading-tight">Chào mừng bạn quay trở lại với cộng đồng Xấu Mã.</p>
           </div>
@@ -60,8 +61,8 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
               <div className="grid grid-cols-5 gap-2">
                 {[
                   { role: AppRole.BUYER,   icon: 'person',         },
-                  { role: AppRole.FARMER,  icon: 'agriculture',     },
-                  { role: AppRole.SHIPPER, icon: 'local_shipping',  },
+                  { role: AppRole.SHIPPER,  icon: 'agriculture',     },
+                  { role: AppRole.FARMER, icon: 'local_shipping',  },
                   { role: AppRole.STAFF,   icon: 'inventory_2',    },
                   { role: AppRole.ADMIN,   icon: 'shield',          },
                 ].map((item) => (

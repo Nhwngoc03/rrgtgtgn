@@ -99,7 +99,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ productId, onBack, isAuth
           </div>
           <div className="flex-1 relative aspect-square rounded-lg overflow-hidden border border-gray-100">
              <img src={allImages[selectedImageIndex] || product.image} className="w-full h-full object-cover" alt={product.name} />
-             <span className="absolute top-4 right-4 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Sale!</span>
+             {product.originalPrice && product.price && (
+               <span className="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase shadow-lg">
+                 -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+               </span>
+             )}
           </div>
         </div>
 

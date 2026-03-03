@@ -73,7 +73,7 @@ const App: React.FC = () => {
 
   // Prevent body scroll when modal is open (but NOT for full page views like ProductDetail, Cart, Checkout)
   useEffect(() => {
-    const isModalOpen = isSuccessOpen || isNewsOpen;
+    const isModalOpen =  isNewsOpen;
     if (isModalOpen) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
@@ -170,6 +170,8 @@ const App: React.FC = () => {
     setIsSuccessOpen(false);
     setIsTrackingOpen(false);
     setSelectedProductId(null);
+    setIsBlindBoxOpen(false);
+    setSelectedBlindBoxId(null);
     // allow scrolling and reset scroll position
     document.body.style.overflow = 'auto';
     document.documentElement.style.overflow = 'auto';
@@ -189,6 +191,20 @@ const App: React.FC = () => {
   const handleOpenTracking = () => {
     setIsSuccessOpen(false);
     setIsTrackingOpen(true);
+  };
+
+  const handleOpenBlindBox = () => {
+    setIsBlindBoxOpen(true);
+    setIsNewsOpen(false);
+    setIsCartOpen(false);
+    setIsCheckoutOpen(false);
+    setIsSuccessOpen(false);
+    setIsTrackingOpen(false);
+    setSelectedProductId(null);
+    setSelectedBlindBoxId(null);
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+    window.scrollTo(0, 0);
   };
 
   const handleCloseBuyerSpecialPages = () => {
@@ -284,7 +300,7 @@ const App: React.FC = () => {
               onOpenCart={handleOpenCart} 
               onLogout={handleLogout}
               onOpenNews={handleOpenNews} 
-              onOpenBlindBox={() => setIsBlindBoxOpen(true)}
+              onOpenBlindBox={handleOpenBlindBox}
               onGoHome={handleCloseBuyerSpecialPages}
               onOpenLogin={() => setAuthMode('LOGIN')}
               onOpenRegister={() => setAuthMode('REGISTER')}
@@ -315,7 +331,7 @@ const App: React.FC = () => {
                  onSelectProduct={(id) => {
                    setSelectedProductId(id);
                  }}
-                 onOpenBlindBox={() => setIsBlindBoxOpen(true)}
+                 onOpenBlindBox={handleOpenBlindBox}
                />}
             </div>
             <Footer />

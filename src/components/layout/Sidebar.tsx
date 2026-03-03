@@ -137,8 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
             </div>
           </div>
           <div className="flex flex-col min-w-0">
-            <p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">{role === AppRole.FARMER ? 'Bác Ba Nông Dân' : 'Admin Tổng'}</p>
-            <p className="text-[8px] text-primary uppercase tracking-widest font-black">Trạng thái: Online</p>
+<p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">{role === AppRole.FARMER ? 'Bác Ba Nông Dân' : role === AppRole.STAFF ? 'Nhân viên kho' : 'Admin Tổng'}</p>            <p className="text-[8px] text-primary uppercase tracking-widest font-black">Trạng thái: Online</p>
           </div>
         </div>
 

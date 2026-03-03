@@ -24,10 +24,11 @@ const Register: React.FC<RegisterProps> = ({ onRegister, onGoToLogin }) => {
             >
               <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" /> Quay lại đăng nhập
             </button>
-            <div className="size-14 bg-white rounded-2xl flex items-center justify-center text-[#5c8d5e] mb-8 shadow-xl">
-              <Leaf className="size-8 fill-current" />
+            
+            <div className="mb-4 flex items-center gap-3 justify-center lg:justify-start">
+              <img src="/logo.png" alt="Logo" className="size-12 rounded-full" />
+              <span className="display-font text-2xl font-bold text-white tracking-tight">Nông Sản Xấu Mã</span>
             </div>
-            <h1 className="text-5xl font-black leading-none mb-2 tracking-tighter">XẤU MÃ</h1>
             <h2 className="text-4xl font-bold text-white/40 leading-none mb-6">Tử tế từ tâm.</h2>
             <p className="text-base text-white/80 font-medium max-w-[240px] leading-relaxed">
               Gia nhập mạng lưới nông sản mộc mạc lớn nhất Việt Nam.

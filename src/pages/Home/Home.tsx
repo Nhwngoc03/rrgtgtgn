@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct, onOpenBlindBox }) => {
       <div className="relative h-[520px] w-full rounded-[40px] overflow-hidden mb-12 group shadow-2xl">
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2000&auto=format&fit=crop")' }}
+          style={{ backgroundImage: 'url("/home.png")' }}
         ></div>
         <div className="absolute inset-0 bg-black/30 flex flex-col justify-center px-16">
           <div className="max-w-2xl">
@@ -47,8 +47,8 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct, onOpenBlindBox }) => {
             </h1>
 
             <p className="mt-2 text-lg md:text-xl font-semibold text-white/90">
-              Chúng tôi cam kết mang đến cho khách hàng nguồn nông sản <span className="text-[#29a33d] font-black whitespace-nowrap">
-  Tươi - Sạch - Minh Bạch</span> với mức giá tiết kiệm nhất, cùng bạn giảm thiểu lãng phí thực phẩm.
+              Chúng tôi cam kết mang đến cho khách hàng nguồn nông sản <span className="text-[#efd916] font-extrabold text-xl md:text-2xl whitespace-nowrap tracking-wide">
+  TƯƠI - SẠCH - MINH BẠCH</span> với mức giá tiết kiệm nhất, cùng bạn giảm thiểu lãng phí thực phẩm.
             </p>
             <button className="mt-8 bg-[#38543a] hover:bg-[#2d432e] text-white px-10 py-4 rounded-2xl font-black text-lg transition-all transform hover:-translate-y-1 shadow-xl shadow-black/20">
               Mua sắm ngay
@@ -96,7 +96,11 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct, onOpenBlindBox }) => {
             >
               <div className="relative aspect-[4/3] w-full bg-white flex items-center justify-center overflow-hidden">
                 <img className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105" src={product.image} alt={product.name} />
-                <div className="absolute top-4 left-4 bg-primary text-white text-[9px] font-black px-2 py-1 rounded-lg uppercase">FRESH</div>
+                {product.originalPrice && product.price && (
+                  <div className="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase shadow-lg">
+                    -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                  </div>
+                )}
               </div>
               <div className="p-7 flex flex-col flex-1">
                 <h3 className="text-gray-900 font-extrabold text-lg line-clamp-2 group-hover:text-primary transition-colors h-14 overflow-hidden">{product.name}</h3>

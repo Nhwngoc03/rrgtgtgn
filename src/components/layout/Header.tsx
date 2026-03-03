@@ -231,7 +231,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center gap-2.5 text-gray-800">
               <Phone className="size-4 fill-current" />
               <span className="text-xs font-black uppercase tracking-tight">
-                HOTLINE: 1900 1234
+                HOTLINE: 0913 135 603
               </span>
             </div>
           </div>

@@ -60,23 +60,9 @@ const BlindBoxList: React.FC<BlindBoxListProps> = ({ onSelectBlindBox, onAddToCa
       quantity: 8,
       sold: 256,
     },
+    
     {
       id: '3',
-      name: 'Gói Trái Cây Mùa (6kg)',
-      price: 149000,
-      originalValue: 280000,
-      image: 'https://images.unsplash.com/photo-1599599810694-ad21baef1133?w=500&h=500&fit=crop',
-      farmName: 'Vườn Trái Cây An Lạc',
-      farmRating: 4.7,
-      distance: '5.2 km',
-      savedCount: 421,
-      items: ['Cam', 'Chanh', 'Dưa hấu', 'Ổi'],
-      description: 'Các loại trái cây tươi mới thuộc mùa hè',
-      quantity: 5,
-      sold: 198,
-    },
-    {
-      id: '4',
       name: 'Gói trái cây Cao Cấp (3kg)',
       price: 109000,
       originalValue: 200000,
@@ -91,7 +77,7 @@ const BlindBoxList: React.FC<BlindBoxListProps> = ({ onSelectBlindBox, onAddToCa
       sold: 412,
     },
     {
-      id: '5',
+      id: '4',
       name: 'Combo Tiết Kiệm Đặc Biệt (10kg)',
       price: 139000,
       originalValue: 260000,
@@ -106,7 +92,7 @@ const BlindBoxList: React.FC<BlindBoxListProps> = ({ onSelectBlindBox, onAddToCa
       sold: 89,
     },
     {
-      id: '6',
+      id: '5',
       name: 'Gói củ Sạch VietGAP (4kg)',
       price: 129000,
       originalValue: 240000,

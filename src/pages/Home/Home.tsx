@@ -18,21 +18,19 @@ import {
 
 interface HomeProps {
   onSelectProduct: (id: string) => void;
+  onOpenBlindBox?: () => void;
 }
 
-const Home: React.FC<HomeProps> = ({ onSelectProduct }) => {
+const Home: React.FC<HomeProps> = ({ onSelectProduct, onOpenBlindBox }) => {
   const [featuredStory, setFeaturedStory] = useState<string>('Nông sản từ vườn đến bàn ăn, giữ trọn hương vị tự nhiên và tâm huyết của người nông dân.');
 
   const categories = [
-    { name: 'Rau ăn lá', icon: Leaf },
-    { name: 'Rau gia vị', icon: Utensils },
-    { name: 'Rau ăn quả', icon: Apple },
-    { name: 'Củ & hạt', icon: LayoutGrid },
-    { name: 'Trái cây', icon: Grape },
+    
+    
   ];
 
   return (
-    <main className="flex-1 w-full max-w-[1280px] mx-auto px-4 md:px-8 lg:px-40 py-8 animate-in fade-in duration-500">
+    <div className="w-full max-w-[1280px] mx-auto px-4 md:px-8 lg:px-40 py-8 animate-in fade-in duration-500">
       {/* Hero Section - Matching the Screenshot */}
       <div className="relative h-[520px] w-full rounded-[40px] overflow-hidden mb-12 group shadow-2xl">
         <div
@@ -44,20 +42,15 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct }) => {
             <span className="inline-block bg-[#38543a] text-white px-4 py-1.5 rounded-md text-[10px] font-black uppercase tracking-widest mb-6">
               TỪ NÔNG TRẠI ĐẾN BÀN ĂN
             </span>
-            <h1 className="text-xl md:text-4xl lg:text-3xl font-extrabold text-white leading-tight md:leading-[1.2] tracking-tight max-w-3xl">
-              Nông Sản Xấu Mã kết nối những thực phẩm bị từ chối vì ngoại hình
-              đến tay gia đình bạn.
-              <br className="hidden md:block" />
-              Chúng tôi cam kết nguồn nông sản
-              <span className="text-[#4fa94d]"> Tươi - Sạch - Minh bạch </span>
-              với mức giá tiết kiệm nhất,
-              cùng bạn giảm thiểu lãng phí thực phẩm.
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight md:leading-[1.2] tracking-tight max-w-3xl">
+              Nông sản xấu mã, nhưng trọn vẹn giá trị bên trong.
             </h1>
 
-            <p className="mt-6 text-xl md:text-2xl font-semibold text-[#4fa94d]">
-              Giá trị thật.
+            <p className="mt-2 text-lg md:text-xl font-semibold text-white/90">
+              Chúng tôi cam kết mang đến cho khách hàng nguồn nông sản <span className="text-[#29a33d] font-black whitespace-nowrap">
+  Tươi - Sạch - Minh Bạch</span> với mức giá tiết kiệm nhất, cùng bạn giảm thiểu lãng phí thực phẩm.
             </p>
-            <button className="bg-[#38543a] hover:bg-[#2d432e] text-white px-10 py-4 rounded-2xl font-black text-lg transition-all transform hover:-translate-y-1 shadow-xl shadow-black/20">
+            <button className="mt-8 bg-[#38543a] hover:bg-[#2d432e] text-white px-10 py-4 rounded-2xl font-black text-lg transition-all transform hover:-translate-y-1 shadow-xl shadow-black/20">
               Mua sắm ngay
             </button>
           </div>
@@ -76,6 +69,7 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct }) => {
         ))}
       </div>
 
+      
       {/* Product List */}
       <div className="mb-20">
         <div className="flex items-center justify-between mb-10 px-2">
@@ -86,8 +80,19 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct }) => {
           {MOCK_PRODUCTS.map((product) => (
             <div
               key={product.id}
-              onClick={() => onSelectProduct(product.id)}
-              className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 flex flex-col cursor-pointer group"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Product clicked:', product.id, product.name);
+                if (typeof onSelectProduct === 'function') {
+                  onSelectProduct(product.id);
+                } else {
+                  console.error('onSelectProduct is not a function');
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 flex flex-col cursor-pointer group active:scale-95 transition-transform"
             >
               <div className="relative aspect-[4/3] w-full bg-white flex items-center justify-center overflow-hidden">
                 <img className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105" src={product.image} alt={product.name} />
@@ -129,7 +134,7 @@ const Home: React.FC<HomeProps> = ({ onSelectProduct }) => {
       </div>
 
       </div>
-    </main>
+    </div>
   );
 };
 

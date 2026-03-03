@@ -1,19 +1,34 @@
+
 import React from 'react';
 import { AppRole } from '../types';
+/* Fix: Import missing icons CheckCircle and Edit3 from lucide-react */
 import { 
-  LayoutDashboard, Package, ShoppingCart, Wallet, UserCircle, Gift, 
-  ShieldCheck, Store, Gavel, Users, Truck, Leaf, CheckCircle, Edit3, ChefHat,
-  ClipboardCheck, Box, PackageCheck
+  LayoutDashboard, 
+  Package, 
+  ShoppingCart, 
+  Wallet, 
+  UserCircle, 
+  Gift, 
+  LogOut, 
+  ShieldCheck, 
+  Store, 
+  Gavel, 
+  Users, 
+  Truck,
+  Leaf,
+  ChevronRight,
+  CheckCircle,
+  Edit3,
+  ChefHat
 } from 'lucide-react';
 
 interface SidebarProps {
   role: AppRole;
   currentPath: string;
   onNavigate: (path: string) => void;
-  onLogout?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate }) => {
   const farmerMenu = [
     { name: 'Tổng quan', icon: LayoutDashboard, id: 'overview' },
     { name: 'Sản phẩm', icon: Package, id: 'products' },
@@ -37,9 +52,9 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
   const staffMenu = [
     { name: 'Tổng quan kho', icon: LayoutDashboard, id: 'staff-overview' },
     { name: 'Quản lý đơn hàng', icon: Truck, id: 'staff-incoming' },
-    { name: 'Kiểm duyệt chất lượng', icon: ClipboardCheck, id: 'staff-inspect' },
-    { name: 'Đóng gói đơn hàng', icon: Box, id: 'staff-pack' },
-    { name: 'Gọi Shipper', icon: PackageCheck, id: 'staff-shipper' },
+    { name: 'Kiểm duyệt chất lượng', icon: ShieldCheck, id: 'staff-inspect' },
+    { name: 'Đóng gói đơn hàng', icon: Gift, id: 'staff-pack' },
+    { name: 'Gọi Shipper', icon: Truck, id: 'staff-shipper' },
     { name: 'Hồ sơ nhân viên', icon: UserCircle, id: 'staff-profile' },
   ];
 
@@ -61,9 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
           </div>
           <div>
             <h1 className="text-xl font-black leading-none font-display text-gray-900 tracking-tight">XẤU MÃ</h1>
-            <p className="text-gray-400 text-[10px] font-bold mt-1 tracking-widest uppercase">
-              {role === AppRole.STAFF ? 'Quản Lý Kho' : role === AppRole.ADMIN ? 'Hệ Thống Quản Trị' : 'Nông Trại Xanh'}
-            </p>
+            <p className="text-gray-400 text-[10px] font-bold mt-1 tracking-widest uppercase">Nông Trại Xanh</p>
           </div>
         </div>
 
@@ -92,24 +105,25 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
       <div className="flex flex-col gap-6">
         <div className="bg-gray-50/80 rounded-3xl p-5 border border-gray-100 flex items-center gap-4 relative group cursor-pointer hover:bg-white transition-all">
           <div className="relative">
-            <img className="size-12 rounded-2xl border-2 border-white shadow-sm object-cover" src={avatarSrc} alt="User" />
+            <img 
+              className="size-12 rounded-2xl border-2 border-white shadow-sm object-cover" 
+              src="https://picsum.photos/seed/farmer_ba/100/100" 
+              alt="User" 
+            />
             <div className="absolute -bottom-1 -right-1 size-5 bg-primary rounded-full border-2 border-white flex items-center justify-center shadow-sm">
                <CheckCircle className="size-3 text-white fill-current" />
             </div>
           </div>
           <div className="flex flex-col min-w-0">
-            <p className="text-sm font-black text-gray-900 truncate">{userName}</p>
-            <p className="text-[9px] text-primary uppercase tracking-widest font-black">{userRole}</p>
+            <p className="text-sm font-black text-gray-900 truncate">Bác Ba Nông Dân</p>
+            <p className="text-[9px] text-primary uppercase tracking-widest font-black">Mức bạc: Thân thiện</p>
           </div>
           <button className="ml-auto size-8 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-primary transition-all shadow-sm">
              <Edit3 className="size-3" />
           </button>
         </div>
 
-        <button
-          onClick={onLogout}
-          className="w-full py-4 px-6 text-xs font-black text-gray-400 border border-gray-100 rounded-3xl hover:bg-red-50 hover:text-red-500 hover:border-red-100 transition-all flex items-center justify-center gap-3 group"
-        >
+        <button className="w-full py-4 px-6 text-xs font-black text-gray-400 border border-gray-100 rounded-3xl hover:bg-red-50 hover:text-red-500 hover:border-red-100 transition-all flex items-center justify-center gap-3 group">
           <span className="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-1">logout</span> 
           <span>Đăng xuất</span>
         </button>

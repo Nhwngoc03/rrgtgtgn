@@ -33,7 +33,7 @@ const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onReturn }) => {
               <Clock className="size-5" />
               <span className="text-xs font-black uppercase tracking-widest">Thời gian dự kiến</span>
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">Quy trình phê duyệt thường mất từ 2-4 giờ làm việc.</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">Quy trình phê duyệt thường mất từ 1-2 giờ làm việc.</p>
           </div>
           <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800">
             <div className="flex items-center gap-3 mb-3 text-accent">

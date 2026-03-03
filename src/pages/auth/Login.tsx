@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { AppRole } from '../../types';
+import { Facebook } from "lucide-react";
 
 interface LoginProps {
   onLogin: (role: AppRole) => void;
@@ -12,7 +14,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background-light">
-      {/* Left Side */}
+      {/* Left Side: Brand Image Panel - Static background */}
       <div className="hidden lg:block lg:w-1/2 relative h-full shrink-0">
         <div className="absolute inset-0 bg-black/10 z-10"></div>
         <img 
@@ -44,6 +46,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8 md:p-12 bg-background-light h-full overflow-hidden">
         <div className="w-full max-w-md flex flex-col justify-center">
           
+          {/* Header - Compact */}
           <div className="mb-6 text-center lg:text-left shrink-0">
             <h1 className="display-font text-4xl font-extrabold text-primary mb-1 tracking-tight">Đăng nhập</h1>
             <p className="text-[#64748b] text-lg font-medium leading-tight">Chào mừng bạn quay trở lại với cộng đồng Xấu Mã.</p>
@@ -67,14 +70,13 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
                     type="button"
                     title={item.role}
                     onClick={() => setSelectedRole(item.role)}
-                    className={`h-14 rounded-2xl border-2 flex flex-col items-center justify-center gap-0.5 transition-all ${
+                    className={`h-12 rounded-2xl border-2 flex items-center justify-center transition-all ${
                       selectedRole === item.role 
                         ? 'border-primary bg-primary/10 text-primary shadow-sm' 
                         : 'border-cream bg-white text-slate-300 hover:border-primary/30'
                     }`}
                   >
-                    <span className="material-symbols-outlined text-xl">{item.icon}</span>
-                  
+                    <span className="material-symbols-outlined text-2xl">{item.icon}</span>
                   </button>
                 ))}
               </div>
@@ -131,10 +133,14 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 shrink-0">
-            <button className="flex items-center justify-center gap-2.5 px-4 py-3 bg-white border-2 border-cream rounded-2xl hover:bg-cream/20 transition-all font-bold text-slate-600 text-base shadow-sm">
-              <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" />
+           <button className="flex items-center justify-center gap-2.5 px-4 py-3 bg-white border-2 border-cream rounded-2xl hover:bg-cream/20 transition-all font-bold text-slate-600 text-base shadow-sm">
+             <img
+                   src="https://www.svgrepo.com/show/475656/google-color.svg"
+                   className="w-5 h-5"
+              />
               Google
             </button>
+
             <button className="flex items-center justify-center gap-2.5 px-4 py-3 bg-white border-2 border-cream rounded-2xl hover:bg-cream/20 transition-all font-bold text-slate-600 text-base shadow-sm">
               Facebook
             </button>
@@ -143,7 +149,10 @@ const Login: React.FC<LoginProps> = ({ onLogin, onGoToRegister }) => {
           <div className="mt-6 text-center shrink-0">
             <p className="text-base font-bold text-slate-500">
               Chưa có tài khoản?{' '}
-              <button onClick={onGoToRegister} className="text-primary font-black hover:underline">
+              <button 
+                onClick={onGoToRegister}
+                className="text-primary font-black hover:underline"
+              >
                 Đăng ký ngay
               </button>
             </p>

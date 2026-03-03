@@ -12,17 +12,13 @@ import {
   Gavel, 
   Users, 
   Truck,
-  Leaf,
   CheckCircle,
   LogOut,
   Bell,
   Newspaper,
   Send,
   ChevronRight,
-  ChefHat,
-  ClipboardCheck,
-  Box,
-  PackageCheck
+  ChefHat
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -60,9 +56,9 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
   const staffMenu = [
     { name: 'Tổng quan kho', icon: LayoutDashboard, id: 'staff-overview' },
     { name: 'Quản lý đơn hàng', icon: Truck, id: 'staff-incoming' },
-    { name: 'Kiểm duyệt chất lượng', icon: ClipboardCheck, id: 'staff-inspect' },
-    { name: 'Đóng gói đơn hàng', icon: Box, id: 'staff-pack' },
-    { name: 'Gọi Shipper', icon: PackageCheck, id: 'staff-shipper' },
+    { name: 'Kiểm duyệt chất lượng', icon: Package, id: 'staff-inspect' },
+    { name: 'Đóng gói đơn hàng', icon: Gift, id: 'staff-pack' },
+    { name: 'Gọi Shipper', icon: Truck, id: 'staff-shipper' },
     { name: 'Hồ sơ nhân viên', icon: UserCircle, id: 'staff-profile' },
   ];
 
@@ -96,13 +92,11 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
     <aside className="w-80 bg-white border-r border-gray-100 flex flex-col h-full shadow-sm z-50">
       {/* Header Logo Area */}
       <div className="p-8 pb-4">
-        <div className="flex items-center gap-3 px-2 cursor-pointer" onClick={() => onNavigate(getHomeRoute())}>
-          <div className="bg-primary size-10 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/30 shrink-0">
-            <Leaf className="size-6 fill-current" />
-          </div>
+        <div className="flex items-center gap-3 px-2 cursor-pointer" onClick={() => onNavigate(role === AppRole.ADMIN ? 'admin-overview' : 'overview')}>
+          <img src="/logo.png" alt="Logo" className="size-10 rounded-full shrink-0" />
           <div>
-            <h1 className="text-xl font-black leading-none font-display text-gray-900 tracking-tight uppercase">XẤU MÃ</h1>
-            <p className="text-gray-400 text-[9px] font-bold mt-1 tracking-widest uppercase">{getSubtitle()}</p>
+            <h1 className="text-xl font-black leading-none font-display text-gray-900 tracking-tight uppercase">NÔNG SẢN XẤU MÃ</h1>
+            <p className="text-gray-400 text-[9px] font-bold mt-1 tracking-widest uppercase">{role === AppRole.ADMIN ? 'HỆ THỐNG QUẢN TRỊ' : 'NÔNG TRẠI XANH'}</p>
           </div>
         </div>
       </div>
@@ -129,13 +123,13 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
         })}
       </nav>
 
-      {/* Footer Area */}
+      {/* Footer Area - Logout is HERE */}
       <div className="p-8 border-t border-gray-50 bg-white space-y-6">
         <div className="bg-gray-50/80 rounded-3xl p-4 border border-gray-100 flex items-center gap-4 group">
           <div className="relative shrink-0">
             <img 
               className="size-10 rounded-xl border-2 border-white shadow-sm object-cover" 
-              src={getAvatar()} 
+              src={role === AppRole.FARMER ? "https://picsum.photos/seed/farmer_ba/100/100" : "https://picsum.photos/seed/admin_avatar/100/100"} 
               alt="User" 
             />
             <div className="absolute -bottom-1 -right-1 size-4 bg-primary rounded-full border-2 border-white flex items-center justify-center">
@@ -143,7 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, currentPath, onNavigate, onLogo
             </div>
           </div>
           <div className="flex flex-col min-w-0">
-            <p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">{getUserName()}</p>
+            <p className="text-xs font-black text-gray-900 truncate uppercase tracking-tight">{role === AppRole.FARMER ? 'Bác Ba Nông Dân' : 'Admin Tổng'}</p>
             <p className="text-[8px] text-primary uppercase tracking-widest font-black">Trạng thái: Online</p>
           </div>
         </div>

@@ -126,7 +126,7 @@ const ShopProducts: React.FC<ShopProductsProps> = ({ farmName, onBack, isAuthent
 
                 <div className="bg-purple-50 rounded-lg p-3 border border-purple-100">
                   <p className="text-lg font-black text-purple-600 mb-0.5">6 năm</p>
-                  <p className="text-[9px] text-gray-500 font-bold uppercase">Tham Gia</p>
+                  <p className="text-[9px] text-gray-500 font-bold uppercase">Kinh nghiệm</p>
                 </div>
               </div>
 

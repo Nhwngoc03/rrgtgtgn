@@ -70,7 +70,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ productId, onBack, isAuth
   }
 
   return (
-    <div className="flex-1 bg-white pb-20">
+    <div className="w-full bg-white pb-20">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between border-b border-gray-100 mb-8">
         <nav className="flex items-center gap-2 text-sm text-gray-500">

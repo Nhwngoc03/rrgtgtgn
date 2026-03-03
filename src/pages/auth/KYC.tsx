@@ -27,7 +27,7 @@ const KYC: React.FC<KYCProps> = ({ onComplete, onBack, role }) => {
       
       <h3 className="text-2xl font-black text-gray-800 mb-4">Hồ sơ đang được chờ duyệt!</h3>
       <p className="text-gray-500 max-w-md mx-auto mb-10 leading-relaxed">
-        Cảm ơn bạn đã hoàn thành hồ sơ năng lực. Đội ngũ quản trị viên của <span className="font-bold text-primary">Xấu Mã</span> sẽ xem xét và phê duyệt tài khoản của bạn trong vòng <span className="text-gray-800 font-bold">24h - 48h</span> làm việc.
+        Cảm ơn bạn đã hoàn thành hồ sơ năng lực. Đội ngũ quản trị viên của <span className="font-bold text-primary">Nông Sản Xấu Mã</span> sẽ xem xét và phê duyệt tài khoản của bạn trong vòng <span className="text-gray-800 font-bold">1h</span> làm việc.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-lg">

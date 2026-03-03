@@ -5,6 +5,8 @@ import Footer from './components/layout/Footer';
 import Sidebar from './components/layout/Sidebar';
 import Home from './pages/Home/Home';
 import ProductDetail from './pages/Product/ProductDetail';
+import BlindBoxList from './pages/BlindBox/BlindBoxList';
+import BlindBoxDetail from './pages/BlindBox/BlindBoxDetail';
 import Cart from './pages/auth/Cart';
 import Checkout from './pages/auth/Checkout';
 import Success from './pages/auth/Success';
@@ -52,6 +54,8 @@ const App: React.FC = () => {
   const [staffSubPage, setStaffSubPage] = useState<string>('staff-overview');
   const [selectedOrderIdForPrep, setSelectedOrderIdForPrep] = useState<string | null>(null);
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [selectedBlindBoxId, setSelectedBlindBoxId] = useState<string | null>(null);
+  const [isBlindBoxOpen, setIsBlindBoxOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
@@ -193,10 +197,14 @@ const App: React.FC = () => {
     setIsSuccessOpen(false);
     setIsTrackingOpen(false);
     setIsNewsOpen(false);
+    setIsBlindBoxOpen(false);
     setSelectedProductId(null);
+    setSelectedBlindBoxId(null);
     // restore scrolling
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
+    // Scroll to top
+    window.scrollTo(0, 0);
   };
 
   // Rendering logic for Auth Screens
@@ -215,7 +223,7 @@ const App: React.FC = () => {
   const renderFarmerContent = () => {
     // Show order preparation if selected
     if (selectedOrderIdForPrep) {
-      return <OrderPreparation
+      return <OrderPreparation 
         orderId={selectedOrderIdForPrep}
         onBack={() => setSelectedOrderIdForPrep(null)}
         onComplete={() => setSelectedOrderIdForPrep(null)}
@@ -269,32 +277,46 @@ const App: React.FC = () => {
       case AppRole.BUYER:
         return (
           <div className="flex flex-col min-h-screen">
-            <Header
-              user={currentUser}
+            <Header 
+              user={currentUser} 
               isAuthenticated={isAuthenticated}
-              onRoleSwitch={setRole}
-              onOpenCart={handleOpenCart}
+              onRoleSwitch={setRole} 
+              onOpenCart={handleOpenCart} 
               onLogout={handleLogout}
-              onOpenNews={handleOpenNews}
+              onOpenNews={handleOpenNews} 
+              onOpenBlindBox={() => setIsBlindBoxOpen(true)}
               onGoHome={handleCloseBuyerSpecialPages}
               onOpenLogin={() => setAuthMode('LOGIN')}
               onOpenRegister={() => setAuthMode('REGISTER')}
             />
             <div className={`flex-1 ${isNewsOpen ? '' : 'overflow-y-auto'}`}>
               {isTrackingOpen ? <Tracking onBack={handleCloseBuyerSpecialPages} /> :
-                isSuccessOpen ? <Success onTrackOrder={handleOpenTracking} onGoHome={handleCloseBuyerSpecialPages} /> :
-                  isCheckoutOpen ? <Checkout onComplete={handlePaymentSuccess} onBack={handleOpenCart} /> :
-                    isCartOpen ? <Cart onProceedToCheckout={handleProceedToCheckout} onBackToShopping={handleCloseBuyerSpecialPages} /> :
-                      isNewsOpen ? <News /> :
-                        selectedProductId ? <ProductDetail
-                          productId={selectedProductId}
-                          onBack={() => setSelectedProductId(null)}
-                          isAuthenticated={isAuthenticated}
-                          onOpenLogin={() => setAuthMode('LOGIN')}
-                        /> :
-                          <Home onSelectProduct={(id) => {
-                            setSelectedProductId(id);
-                          }} />}
+               isSuccessOpen ? <Success onTrackOrder={handleOpenTracking} onGoHome={handleCloseBuyerSpecialPages} /> :
+               isCheckoutOpen ? <Checkout onComplete={handlePaymentSuccess} onBack={handleOpenCart} /> :
+               isCartOpen ? <Cart onProceedToCheckout={handleProceedToCheckout} onBackToShopping={handleCloseBuyerSpecialPages} /> :
+               isNewsOpen ? <News /> :
+               selectedBlindBoxId ? <BlindBoxDetail 
+                 blindBoxId={selectedBlindBoxId}
+                 onBack={() => setSelectedBlindBoxId(null)}
+                 onAddToCart={() => handleOpenCart()}
+               /> :
+               isBlindBoxOpen ? <BlindBoxList 
+                 onSelectBlindBox={(id) => setSelectedBlindBoxId(id)}
+                 onAddToCart={() => handleOpenCart()}
+                 onBack={() => setIsBlindBoxOpen(false)}
+               /> :
+               selectedProductId ? <ProductDetail 
+                 productId={selectedProductId} 
+                 onBack={() => setSelectedProductId(null)}
+                 isAuthenticated={isAuthenticated}
+                 onOpenLogin={() => setAuthMode('LOGIN')}
+               /> :
+               <Home 
+                 onSelectProduct={(id) => {
+                   setSelectedProductId(id);
+                 }}
+                 onOpenBlindBox={() => setIsBlindBoxOpen(true)}
+               />}
             </div>
             <Footer />
           </div>
